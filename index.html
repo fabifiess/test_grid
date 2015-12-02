@@ -1,0 +1,661 @@
+<!--- Created by Fabian Fiess (fabi.images@gmail.com) for ICT AG in October 2014 -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+        <link rel="shortcut icon" href="./public/shortcut_icon.png">
+        
+        <title>Test-Grid</title>
+        <link type="text/css" rel="stylesheet" href="./public/styles.css" />
+        <script src="./public/jquery-1.11.1.js"></script>                          <!-- JQuery-Library -->
+        
+        <script src="./public/jquery-ui.js"></script>                              <!-- Slider: JQuery-UI-Interfaces-Library -->
+        <link rel="stylesheet" href="./public/jquery-ui.css">                      <!-- Slider: CSS zur JQuery-UI-Interfaces-Library -->
+        
+        <script src="./public/jquery.ui.touch-punch.min.js"></script>              <!-- Draggable Components funktionieren somit auch mit Touch-Displays -->
+        
+        <script src="./public/sidebar.js"></script>	                               <!-- Sidebar -->
+    </head>
+
+    <body onresize="updateWindowSize()" onload="updateWindowSize()">
+        <div class="wrapper jsc-sidebar-content jsc-sidebar-pulled">
+     
+            <!-- Main Page Content -->
+            <section class="main-content">
+                <div id="gridpanel">
+                    <div class="square" >
+                        <div class="inner_square"/>      
+                    </div>
+                </div> 
+
+                <div id="gridpanel_layer2">
+                    <div class="square_layer2" >
+                        <div class="inner_square_layer2"/>      
+                    </div>
+                </div> 
+                
+                <div  id="trigger_navbar" class="jsc-sidebar-trigger" />            <!-- erstes Quadrat links oben, unsichtbar -> Trigger der Menubar -->
+                
+            </section>
+        </div>
+        
+        <!-- Sidebar Content-->
+        <nav class="sidebar jsc-sidebar" id="navbar" data-sidebar-options="">
+            <div id="sidebar_left">
+                <p id="header"> Grid Control Bar </p>
+                
+                <ul id="menu">
+                    
+                    <!-- Kante -->
+                    <li>
+                        <a> <span id = "kantensettings_label" class="main_menuitem"> Kante </span> </a>
+                        <div id="kantensettings_menu">
+                            <a> <div id="kante_breite" class="sub_menuitem_kante">Kantenbreite</div> </a>
+                            <div id="kante_breite_controllers" class="controlpanel">
+                                <input type="text" id="kantenbreite_label" size=2 maxlength=2> px
+                                <div id="kantenbreite_slider" class="slider"></div> 
+                            </div>
+                            
+                            <a><div id="kante_blur" class="sub_menuitem_kante">Blur</div> </a>
+                            <div id="kante_blur_controllers" class="controlpanel">
+                                <input type="text" id="blur_label" size=2 maxlength=2> px
+                                <div id="blur_slider" class="slider"></div> 
+                        	</div>        
+                        </div>
+                    </li>
+                    
+                    <!-- Schimmer -->
+                    <li>
+                        <a> <span id = "schimmersettings_label" class="main_menuitem"> Schimmer </span> </a>
+                        <div id="schimmersettings_menu">
+                        
+                            <a> <div id="schimmer_breite" class="sub_menuitem_schimmer">Breite Schimmer</div> </a>
+                            <div id="schimmer_breite_controllers" class="controlpanel">
+                                <input type="text" id="schimmerbreite_label" size=1 maxlength=2> px
+                                <div id="schimmerbreite_slider" class="slider"></div> 
+                            </div>
+                            
+                            <a> <div id="schimmer_blur" class="sub_menuitem_schimmer">Blur Schimmer</div> </a>
+                            <div id="schimmer_blur_controllers" class="controlpanel">
+                                <input type="text" id="schimmerblur_label" size=1 maxlength=2> px
+                                <div id="schimmerblur_slider" class="slider"></div> 
+                        	</div>        
+                        </div>
+                    </li>
+                    
+                    <!-- Helligkeit/Farbe -->
+                    <li>
+                        <a> <span id = "farbsettings_label" class="main_menuitem"> Helligkeit/Farbe </span> </a>
+                        <div id="farbsettings_menu">
+                            
+                            <div id="kantenfarbe_cont_rgb_sw">	
+                                <a> <div id="kantenfarbe_label" class="sub_menuitem_farbe">Kantenfarbe</div> </a>
+                                <div id="kantenfarbe_menu">
+                                    <span id="rgb_kante_label" class="sub_sub_menuitem_kantenfarbe"> RGB </span>
+                                    <span id="sw_kante_label" class="sub_sub_menuitem_kantenfarbe"> SW </span>
+                                </div>    
+                         
+                                <div id="kantenfarbe_rgb_controllers" class="controlpanel">
+                                    <input type="text" id="kantenfarbe_r" size=1 maxlength=3>
+                                    <input type="text" id="kantenfarbe_g" size=1 maxlength=3>
+                                    <input type="text" id="kantenfarbe_b" size=1 maxlength=3>
+                                    
+                                    <div id="kantenfarbe_R_slider" class="slider"></div> 
+                                    <div id="kantenfarbe_G_slider" class="slider"></div>
+                                    <div id="kantenfarbe_B_slider" class="slider"> </div> 
+                                </div> 
+                                
+                                <div id="kantenfarbe_sw_controllers" class="controlpanel"> 
+                                    <input type="text" id="kantenfarbe_sw" size=1 maxlength=3>
+                                    <div id="kantenfarbe_sw_slider" class="slider"></div> 
+                                </div>  
+                            </div>
+                          
+                            <div id="flaechenfarbe_cont_rgb_sw">
+                           		<a> <div id="flaechenfarbe_label" class="sub_menuitem_farbe"> Flächenfarbe </div> </a>
+                                <div id="flaechenfarbe_menu">
+                                    <a href="#" id="rgb_flaeche_label" class="sub_sub_menuitem_flaechenfarbe"> RGB </a>
+                                    <a href="#" id="sw_flaeche_label" class="sub_sub_menuitem_flaechenfarbe"> SW </a>
+                                </div>    
+                                
+                                <div id="flaechenfarbe_rgb_controllers" class="controlpanel">
+                                    <input type="text" id="flaechenfarbe_r" size=1 maxlength=3>
+                                    <input type="text" id="flaechenfarbe_g" size=1 maxlength=3>
+                                    <input type="text" id="flaechenfarbe_b" size=1 maxlength=3>
+                                    
+                                    <div id="flaechenfarbe_R_slider" class="slider"></div> 
+                                    <div id="flaechenfarbe_G_slider" class="slider"></div> 
+                                    <div id="flaechenfarbe_B_slider" class="slider"></div> 
+                                </div> 
+                                
+                                <div id="flaechenfarbe_sw_controllers" class="controlpanel"> 
+                                    <input type="text" id="flaechenfarbe_sw" size=1 maxlength=3>
+                                    <div id="flaechenfarbe_sw_slider" class="slider"></div> 
+                                </div>  
+                            </div> 
+                        </div>
+                    </li> 
+                    
+                    <!-- Größe -->  
+                    <li>
+                        <a> <span id = "sizesettings_label" class="main_menuitem"> Größe </span> </a>
+                        <div id="sizesettings_controllers" class="controlpanel">
+                     
+                        	<input type="text" id="size_label" size=1 maxlength=2> px
+                        <div id="size_slider" class="slider"></div> 
+                    </li>  
+
+                    <!-- Anzahl -->
+                    <li>
+                        <a> <span id = "numbersettings_label" class="main_menuitem"> Anzahl </span>  </a>
+                        <div id="numbersettings_controllers" class="controlpanel">
+                        	<input type="text" id="number_textfield" size=2 maxlength=4> Quadrate
+                    	</div>        
+                    </li>  
+                    
+            	</ul> 
+                <!-- Option "displayfüllend" -->
+                <a href="#" id="fullscreenToggle" class="fullscreenToggle"> bildschirmfüllend </a>
+                
+                <div class="windowInfo" id="displaygroesse"> Displaygröße: <span id="w_display"> </span> x <span id="h_display"> </span> px </div> 
+                <div class="windowInfo" id="anzahl" style="display:none"> Anzahl Quadrate: <span id="countQuads"> </span> </div>	<!-- wird nur bei Option "displayfüllend" angezeigt -->     
+            </div>
+        </nav>
+        
+        <!-- eingeblendete Schriftzüge -->
+        <div id="mitteilung1">Erstes Quadrat links oben klicken</div>
+        <div id="mitteilung2">Fullscreen je nach Browser mit CTRL + SHIFT + F oder mit F11 </div>
+	</body>
+    
+
+            
+    <script>
+		// detect Window size
+		function updateWindowSize()
+		{
+			var w_display = window.screen.availWidth; // Displaygröße
+			var h_display = window.screen.availHeight;
+			
+			this.getWidth = function() { return w_display; }	
+			this.getHeight = function() { return h_display; }
+		
+			//fillWindow(w_display, h_display);
+			$("#w_display").text(w_display); 
+			$("#h_display").text(h_display);
+		}
+		
+	
+		
+		// Mitteilungen ein- und ausblenden
+		$(document).ready(function()
+		{
+			$('#mitteilung2').hide();
+			$('#mitteilung1').delay(100).fadeIn("slow").delay(2000).fadeOut(3000).hide().delay(500, function()
+			{
+				$('#mitteilung2').delay(100).fadeIn("slow").delay(2000).fadeOut(3000).hide();
+			});
+		});
+		
+		
+		// Menu Color Schema
+		
+		// Main Menu Items
+		menuAnimation("main_menuitem");  
+		// Sub Menu Items
+		menuAnimation("sub_menuitem_kante"); 
+		menuAnimation("sub_menuitem_schimmer");  
+		menuAnimation("sub_menuitem_farbe");  
+		// Sub Sub Menu Items
+		menuAnimation("sub_sub_menuitem_kantenfarbe");
+		menuAnimation("sub_sub_menuitem_flaechenfarbe"); 
+		menuAnimation("fullscreenToggle");
+		
+		
+		
+		
+		function menuAnimation(menuitem)
+		{
+			$("." + menuitem).hover(function() 
+			{
+				$(this).stop(true,true).addClass(menuitem + "_hover", 300);
+			}, function() {
+				$(this).stop(true,true).removeClass(menuitem + "_hover", 300);
+			});
+			
+			
+			$("." + menuitem).click(function() 
+			{
+				$("." + menuitem).removeClass(menuitem + "_active");
+				$(this).removeClass(menuitem + "_hover").addClass(menuitem + "_active");
+			});
+		}
+		
+		
+		
+		// Toggle Fullscreen
+		var fullscreen = false;
+		
+		$("#fullscreenToggle").click(function () 
+		{
+			$("#menu").slideToggle();
+			
+			updateWindowSize();
+			if(fullscreen == false)
+			{ 
+				fullscreen = true; 
+				$(this).text("Einstellungen");
+				fillFullscreen(true);
+			}
+			else if(fullscreen == true)
+			{
+				fullscreen = false; 
+				$(this).text("bildschirmfüllend");
+				fillFullscreen(false);
+			}; 
+		});
+		
+		
+		
+		
+		// Sidebar Config Script
+				
+		$('#navbar').sidebar({
+			trigger: '#trigger_navbar',
+			scrollbarDisplay: true, 
+		});
+		
+		// menuSlideToggle(label, content); --> Mit Click auf das Label wird der Content geöffnet
+		// Kante
+		menuSlideToggle($("#kantensettings_label"), $("#kantensettings_menu"));         // Kantensettings aufklappen
+		menuSlideToggle($("#kante_breite"), $("#kante_breite_controllers"));            // Kantensettings --> Option Kantenbreite aufklappen
+		menuSlideToggle($("#kante_blur"), $("#kante_blur_controllers"));                // Kantensettings --> Option Kantenblur aufklappen
+		// Schimmer
+		menuSlideToggle($("#schimmersettings_label"), $("#schimmersettings_menu"));     // Schimmersettings aufklappen
+		menuSlideToggle($("#schimmer_breite"), $("#schimmer_breite_controllers"));      // Schimmersettings --> Option Kantenbreite aufklappen
+		menuSlideToggle($("#schimmer_blur"), $("#schimmer_blur_controllers"));          // Schimmersettings --> Option Kantenblur aufklappen
+		// Helligkeit/Farbe
+		menuSlideToggle($("#farbsettings_label"), $("#farbsettings_menu"));             // Farbsettings aufklappen
+		menuSlideToggle($("#kantenfarbe_label"), $("#kantenfarbe_menu"));               // Farbsettings --> Option Kantenfarbe aufklappen	
+		// Farbsettings --> Option Kantenfarbe --> Kantenfarbe RGB, SW Toggle aufklappen SIEHE UNTEN
+		menuSlideToggle($("#flaechenfarbe_label"), $("#flaechenfarbe_menu"));           // Farbsettings --> Option Flächenfarbe aufklappen
+		// Farbsettings --> Option Flächenfarbe -->Flaechenfarbe RGB, SW Toggle SIEHE UNTEN
+		// Größe
+		menuSlideToggle($("#sizesettings_label"), $("#sizesettings_controllers"));      // Sizesettings aufklappen
+		// Anzahl
+		menuSlideToggle($("#numbersettings_label"), $("#numbersettings_controllers"));  // Numbersettings aufklappen
+		
+		
+			
+		// Farbsettings --> Option Kantenfarbe --> Kantenfarbe RGB, SW Toggle aufklappen
+		
+		$("#kantenfarbe_rgb_controllers").hide(); 
+		$("#kantenfarbe_sw_controllers").hide(); 
+		
+		var toggle_kantenfarbe_rgb = false;
+		var toggle_kantenfarbe_sw = false;
+		
+		$("#rgb_kante_label").click(function()
+		{
+			if(toggle_kantenfarbe_rgb == false)
+			{
+				$("#kantenfarbe_sw_controllers").slideUp("fast");
+				$("#kantenfarbe_rgb_controllers").slideDown("fast");
+				$("#sw_kante_label").text("SW");
+				$(this).text('Hide RGB');
+				toggle_kantenfarbe_rgb = true;
+				toggle_kantenfarbe_sw = false;
+				cssChange();
+			}
+			else
+			{
+				$("#kantenfarbe_rgb_controllers").slideUp("fast");
+				$(this).text('RGB');
+				toggle_kantenfarbe_rgb = false;
+			}
+		});
+		
+			
+		$("#sw_kante_label").click(function()
+		{
+			if(toggle_kantenfarbe_sw == false)
+			{
+				$("#kantenfarbe_rgb_controllers").slideUp("fast");
+				$("#kantenfarbe_sw_controllers").slideDown("fast");
+				$("#rgb_kante_label").text("RGB");
+				$(this).text('Hide SW');
+				toggle_kantenfarbe_sw = true;
+				toggle_kantenfarbe_rgb = false;
+				cssChange();
+			}
+			else
+			{
+				$("#kantenfarbe_sw_controllers").slideUp("fast");
+				$(this).text('SW');
+				toggle_kantenfarbe_sw = false;
+			}
+		});
+		
+		
+		
+	
+		// Farbsettings --> Option Flächenfarbe -->Flaechenfarbe RGB, SW Toggle
+		
+		$("#flaechenfarbe_rgb_controllers").hide(); 
+		$("#flaechenfarbe_sw_controllers").hide(); 
+		
+		var toggle_flaechenfarbe_rgb = false;
+		var toggle_flaechenfarbe_sw = false;
+		
+		$("#rgb_flaeche_label").click(function()
+		{
+			if(toggle_flaechenfarbe_rgb == false)
+			{
+				$("#flaechenfarbe_sw_controllers").slideUp("fast");
+				$("#flaechenfarbe_rgb_controllers").slideDown("fast");
+				$("#sw_flaeche_label").text("SW");
+				$(this).text('Hide RGB');
+				toggle_flaechenfarbe_rgb = true;
+				toggle_flaechenfarbe_sw = false;
+				cssChange();
+			}
+			else
+			{
+				$("#flaechenfarbe_rgb_controllers").slideUp("fast");
+				$(this).text('RGB');
+				toggle_flaechenfarbe_rgb = false;
+			}
+		});
+		
+			
+		$("#sw_flaeche_label").click(function()
+		{
+			if(toggle_flaechenfarbe_sw == false)
+			{
+				$("#flaechenfarbe_rgb_controllers").slideUp("fast");
+				$("#flaechenfarbe_sw_controllers").slideDown("fast");
+				$("#rgb_flaeche_label").text("RGB");
+				$(this).text('Hide SW');
+				toggle_flaechenfarbe_sw = true;
+				toggle_flaechenfarbe_rgb = false;
+				cssChange();
+			}
+			else
+			{
+				$("#flaechenfarbe_sw_controllers").slideUp("fast");
+				$(this).text('SW');
+				toggle_flaechenfarbe_sw = false;
+			}
+		});
+		
+		
+		
+		// Menüs aufklappen
+		
+		function menuSlideToggle(label, content)
+		{
+			content.hide(); 
+			label.click(function()
+			{
+				content.slideToggle("fast");
+			});
+		}
+		
+		
+		
+		// Numbersettings
+		
+		var square = $('.square');
+		var square_layer2 = $('.square_layer2');
+		var countStart = 20;
+		// Anzeige von 20 Quadraten zu Beginn
+		for(var i = 1; i <= countStart-1; i++)
+		{
+			square.clone().appendTo('#gridpanel');
+			square_layer2.clone().appendTo('#gridpanel_layer2');
+			$('#number_textfield').val(i + 1);
+		}
+		
+		// Anzahl der Quadrate ändern, indem man die im Textfeld eingegebene Zahl mit Enter bestätigt
+			
+		$('#number_textfield').keyup(function(e)
+		{
+			if(e.keyCode == 13)
+			{
+				fillFullscreen(false);                    // Quadrate löschen und neu zeichnen, false: nicht fullscreen
+			}
+		});
+		
+	
+				
+		
+		
+		
+		// Slider konfigurieren
+		
+		// makeSlider(divElement, maxValue)
+		makeSlider($("#kantenbreite_slider"), 150);	      // Kantenbreite-Slider Layer1
+		makeSlider($("#blur_slider"), 150);               // Blur-Slider Layer 1
+		makeSlider($("#schimmerbreite_slider"), 30);	  // Kantenbreite-Slider Layer1 (Schimmerbreite)
+		makeSlider($("#schimmerblur_slider"), 30);        // Blur-Slider Layer 2 (Schimmerblur)
+		makeSlider($("#size_slider"), 300);               // Größenslider
+		makeSlider($("#kantenfarbe_R_slider, #kantenfarbe_G_slider, #kantenfarbe_B_slider, #flaechenfarbe_R_slider, #flaechenfarbe_G_slider, #flaechenfarbe_B_slider, #kantenfarbe_sw_slider, #flaechenfarbe_sw_slider"), 255); // Größenslider
+	
+	
+		// Slider konfigurieren
+		
+		function makeSlider(divElement, maxValue)
+		{
+			$(divElement).slider(
+			{
+				orientation: "horizontal",
+				range: "min",
+				max: maxValue,
+				slide: cssChange,
+				change: cssChange
+			});
+		}
+	
+	
+		
+// Anfangsstellung der Slider
+		
+		// div-Behälter werden zu Slidern
+		$( "#kantenbreite_slider" ).slider( "value", 20 );
+		$( "#blur_slider" ).slider( "value", 50 );
+		
+		$( "#schimmerbreite_slider" ).slider( "value", 0 );
+		$( "#schimmerblur_slider" ).slider( "value", 0 );
+		
+		$( "#kantenfarbe_R_slider" ).slider( "value", 0 );
+		$( "#kantenfarbe_G_slider" ).slider( "value", 0 );
+		$( "#kantenfarbe_B_slider" ).slider( "value", 0 );
+		$( "#kantenfarbe_sw_slider" ).slider( "value", 0 );
+		
+		$( "#flaechenfarbe_R_slider" ).slider( "value", 255 );
+		$( "#flaechenfarbe_G_slider" ).slider( "value", 255 );
+		$( "#flaechenfarbe_B_slider" ).slider( "value", 255 );
+		$( "#flaechenfarbe_sw_slider" ).slider( "value", 255 );
+		
+		$( "#size_slider" ).slider( "value", 200 );
+		
+		
+		
+
+		function cssChange() 
+		{
+			// Slider und Labels synchronisieren
+			var kantenbreite = updateControlValues($("#kantenbreite_slider"), $("#kantenbreite_label"));
+			var blur = updateControlValues($("#blur_slider"), $("#blur_label"));
+			var schimmerbreite = updateControlValues($("#schimmerbreite_slider"), $("#schimmerbreite_label"));
+			var schimmerblur = updateControlValues($("#schimmerblur_slider"), $("#schimmerblur_label"));
+			var kantenfarbe_R_slider = updateControlValues($("#kantenfarbe_R_slider"), $("#kantenfarbe_r"));
+			var kantenfarbe_G_slider = updateControlValues($("#kantenfarbe_G_slider"), $("#kantenfarbe_g"));
+			var kantenfarbe_B_slider = updateControlValues($("#kantenfarbe_B_slider"), $("#kantenfarbe_b"));
+			var kantenfarbe_sw_slider = updateControlValues($("#kantenfarbe_sw_slider"), $("#kantenfarbe_sw"));
+			var flaechenfarbe_R_slider = updateControlValues($("#flaechenfarbe_R_slider"), $("#flaechenfarbe_r"));
+			var flaechenfarbe_G_slider = updateControlValues($("#flaechenfarbe_G_slider"), $("#flaechenfarbe_g"));
+			var flaechenfarbe_B_slider = updateControlValues($("#flaechenfarbe_B_slider"), $("#flaechenfarbe_b"));
+			var flaechenfarbe_sw_slider = updateControlValues($("#flaechenfarbe_sw_slider"), $("#flaechenfarbe_sw"));
+			var sizeslider = updateControlValues($("#size_slider"), $("#size_label"));
+			
+			// Slider-Werte Textfeldeinträge  synchronisieren
+			function updateControlValues(slider, label)
+			{
+				// Stellung des Sliders ablesen
+				value_slider = slider.slider("value");
+				// Textfeld beschriften
+				label.val(value_slider);
+				
+				// Texteingabe lesen und Slider aktualisieren
+				label.change(function () 
+				{
+					var value_textfield = this.value.substring();
+					slider.slider("value", parseInt(value_textfield));
+				});
+				return value_slider;	
+			}
+			
+			
+			this.getSizeslider = function() { return sizeslider; }
+			
+			// CSS-Manipulation
+			
+			// Kantenfarbe: RGB, Flaechenfarbe: RGB 
+			if(toggle_kantenfarbe_rgb == true && toggle_flaechenfarbe_rgb == true) 
+			{	
+				stylesVeraendern(kantenbreite, blur, schimmerbreite, schimmerblur, kantenfarbe_R_slider, kantenfarbe_G_slider, kantenfarbe_B_slider, kantenfarbe_sw_slider, flaechenfarbe_R_slider, flaechenfarbe_G_slider, flaechenfarbe_B_slider, flaechenfarbe_sw_slider, sizeslider);
+			}
+			
+			// Kantenfarbe: RGB, Flaechenfarbe: SW 
+			if(toggle_kantenfarbe_rgb == true && toggle_flaechenfarbe_rgb == false) 
+			{	
+				stylesVeraendern(kantenbreite, blur, schimmerbreite, schimmerblur, kantenfarbe_R_slider, kantenfarbe_G_slider, kantenfarbe_B_slider, kantenfarbe_sw_slider, flaechenfarbe_sw_slider, flaechenfarbe_sw_slider, flaechenfarbe_sw_slider, flaechenfarbe_sw_slider, sizeslider);
+			}
+			
+			// Kantenfarbe: RGB, Flaechenfarbe: SW 
+			if(toggle_kantenfarbe_rgb == false && toggle_flaechenfarbe_rgb == false) 
+			{	
+				stylesVeraendern(kantenbreite, blur, schimmerbreite, schimmerblur, kantenfarbe_sw_slider, kantenfarbe_sw_slider, kantenfarbe_sw_slider, kantenfarbe_sw_slider, flaechenfarbe_sw_slider, flaechenfarbe_sw_slider, flaechenfarbe_sw_slider, flaechenfarbe_sw_slider, sizeslider);
+			}
+			
+			// Kantenfarbe: SW, Flaechenfarbe: RGB
+			if(toggle_kantenfarbe_rgb == false && toggle_flaechenfarbe_rgb == true) 
+			{	
+				stylesVeraendern(kantenbreite, blur, schimmerbreite, schimmerblur, kantenfarbe_sw_slider, kantenfarbe_sw_slider, kantenfarbe_sw_slider, kantenfarbe_sw_slider, flaechenfarbe_R_slider, flaechenfarbe_G_slider, flaechenfarbe_B_slider, flaechenfarbe_sw_slider, sizeslider);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		function stylesVeraendern(kantenbreite, blur, schimmerbreite, schimmerblur, kantenfarbe_R_slider, kantenfarbe_G_slider, kantenfarbe_B_slider, kantenfarbe_sw_slider, flaechenfarbe_R_slider, flaechenfarbe_G_slider, flaechenfarbe_B_slider, flaechenfarbe_sw_slider, sizeslider)
+		{
+			// Kantensettings Layer 1: Kantenbreite, Kantenblur, Kantenfarbe (nicht teilbar in CSS)
+			// box-shadow: rgb(0, 0, 0) 0px 0px 40px 10px inset; --> Farbe(r,g,b), Links=0, oben=0, Kantenblur, Kantenbreite, nach innen
+			$(".inner_square").css("box-shadow", "rgb(" + kantenfarbe_R_slider + "," + kantenfarbe_G_slider + "," + kantenfarbe_B_slider 
+				+") 0px 0px " + blur + "px " + kantenbreite + "px inset"); 
+		
+			// Schimmersettings = Kantensettings für Layer 2: Kantenbreite, Kantenblur, Kantenfarbe (nicht teilbar in CSS)
+			// box-shadow: rgb(0, 0, 0) 0px 0px 40px 10px inset; --> Farbe(r,g,b), Links=0, oben=0, Kantenblur, Kantenbreite, nach innen
+			$(".inner_square_layer2").css("box-shadow", "rgb(" + flaechenfarbe_R_slider + "," + flaechenfarbe_G_slider + "," + flaechenfarbe_B_slider 
+				+") 0px 0px " + schimmerblur + "px " + schimmerbreite + "px inset"); 
+				
+			// Flächenfarbe
+			// background-color: rgb(r, g, b);
+			$(".square").css("background-color", "rgb(" + flaechenfarbe_R_slider + "," + flaechenfarbe_G_slider + "," + flaechenfarbe_B_slider + ")");		
+				
+			// Größe der Quadrate Layer 1 und 2
+			// width: 300px; height: 300px;	
+			$(".square").css("width", sizeslider); $(".square").css("height", sizeslider);	
+			$(".square_layer2").css("width", sizeslider); $(".square_layer2").css("height", sizeslider);
+			$("#trigger_navbar").css("width", sizeslider); $("#trigger_navbar").css("height", sizeslider);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	
+		
+	
+		// Quadrate nach veränderter Anzahl festlegen und neu zeichnen
+		
+		function fillFullscreen(toggleButton)
+		{
+			// Seitenmaße des Displays 
+			var dimensions = new updateWindowSize();
+			var windowWidth = dimensions.getWidth();         // Displaybreite
+			var windowHeight = dimensions.getHeight();       // Displayhöhe
+			// $('#countwidth').text(windowHeight);
+			
+			// Kantenlänge eines Quadrats
+			var cssData = new cssChange();
+			var kantenlaenge = cssData.getSizeslider();      // Kantenlänge eines Quadrats
+			// $('#countheight').text(kantenlaenge);
+			
+			var countWidth = Math.ceil(windowWidth / kantenlaenge); 
+			var countHeight = Math.ceil(windowHeight / kantenlaenge)+1;
+			
+			var gridpanelWidth = countWidth * kantenlaenge;  // keine weißen Ränder rechts: Quadrate, die nicht komplett in die Breite passen, werden abgeschnitten
+			$('#gridpanel').css("width", gridpanelWidth);
+			
+			var countTotal = countWidth * countHeight;       // Maximale Anzahl an Quadraten, die auf einer Seite dargestellt werden können
+			var countSettings;                               // Eingestellte Anzahl an Quadraten
+			
+			$(".square").remove();
+			$(".square_layer2").remove();
+			
+			if(toggleButton == true)
+			{
+				$('#countQuads').text(countTotal);
+	
+				
+				for(var i = 1; i <= countTotal; i++)
+				{
+					square.clone().appendTo('#gridpanel');
+					square_layer2.clone().appendTo('#gridpanel_layer2');
+				}   
+	
+				cssChange();
+				$('#anzahl').show();
+			}
+			
+			
+			else if(toggleButton == false)                    // false: Quadrate nicht bildschirmfüllend
+			{
+				countSettings = $('#number_textfield').val();
+				$('#countQuads').text(countTotal);
+				
+				for(var i = 1; i <= countSettings; i++)
+				{
+					square.clone().appendTo('#gridpanel');
+					square_layer2.clone().appendTo('#gridpanel_layer2');
+				}   
+				
+				cssChange();
+				$('#anzahl').hide();
+			}		
+		}
+	</script>
+    </body>
+</html>
